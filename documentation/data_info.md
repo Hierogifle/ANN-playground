@@ -504,7 +504,7 @@ Valeurs possibles :
 
 ---
 
-## Classification Multidimensionnelle des Nationalités - Dataset Polytechnique Portugaise
+## Classification Multidimensionnelle des Nationalités
 
 Basé sur un ensemble d'indicateurs de développement, d'éducation, de santé, de sécurité et de liberté économique, voici une classification exhaustive des nationalités pour analyser l'impact sur la réussite académique.
 
@@ -612,7 +612,7 @@ Cette classification multidimensionnelle permet d'identifier :
 
 ---
 
-## Groupes de Niveau d'Études des Parents – Classification Impact Scolaire
+## Groupes de Niveau d'Études des Parents
 
 ### Groupe 0 : Diplômes universitaires supérieurs
 - 5 : Doctorat (3ᵉ cycle)
