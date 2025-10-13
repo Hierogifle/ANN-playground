@@ -249,6 +249,7 @@ Valeurs possibles :
 - 122 : Professionnels de la santé  
 - 123 : Enseignants  
 - 124 : Spécialistes en finance, comptabilité, organisation administrative, relations publiques et commerciales  
+- 125 : Pas de correspondances 
 - 131 : Techniciens et professions intermédiaires des sciences et de l’ingénierie  
 - 132 : Techniciens et professionnels de santé de niveau intermédiaire  
 - 134 : Techniciens de niveau intermédiaire des services juridiques, sociaux, sportifs, culturels et similaires  
@@ -264,11 +265,13 @@ Valeurs possibles :
 - 163 : Agriculteurs, éleveurs, pêcheurs, chasseurs et cueilleurs de subsistance  
 - 171 : Ouvriers qualifiés du bâtiment et assimilés, à l’exception des électriciens  
 - 172 : Ouvriers qualifiés de la métallurgie, du travail des métaux et similaires  
+- 173 : Pas de correspondances
 - 174 : Ouvriers qualifiés en électricité et en électronique  
 - 175 : Travailleurs de la transformation alimentaire, du bois, de l’habillement et autres industries et artisanats  
 - 181 : Opérateurs d’installations fixes et de machines  
 - 182 : Travailleurs de l’assemblage  
 - 183 : Conducteurs de véhicules et opérateurs d’équipements mobiles  
+- 191 : Pas de correspondances
 - 192 : Travailleurs non qualifiés de l’agriculture, de la production animale, de la pêche et de la sylviculture  
 - 193 : Travailleurs non qualifiés de l’industrie extractive, de la construction, de la fabrication et du transport  
 - 194 : Aides à la préparation des repas  
@@ -300,6 +303,7 @@ Valeurs possibles :
 - 122 : Professionnels de la santé  
 - 123 : Enseignants  
 - 124 : Spécialistes en finance, comptabilité, organisation administrative, relations publiques et commerciales  
+- 125 : Pas de correspondances 
 - 131 : Techniciens et professions intermédiaires des sciences et de l’ingénierie  
 - 132 : Techniciens et professionnels de santé de niveau intermédiaire  
 - 134 : Techniciens de niveau intermédiaire des services juridiques, sociaux, sportifs, culturels et similaires  
@@ -315,15 +319,17 @@ Valeurs possibles :
 - 163 : Agriculteurs, éleveurs, pêcheurs, chasseurs et cueilleurs de subsistance  
 - 171 : Ouvriers qualifiés du bâtiment et assimilés, à l’exception des électriciens  
 - 172 : Ouvriers qualifiés de la métallurgie, du travail des métaux et similaires  
+- 173 : Pas de correspondances
 - 174 : Ouvriers qualifiés en électricité et en électronique  
 - 175 : Travailleurs de la transformation alimentaire, du bois, de l’habillement et autres industries et artisanats  
 - 181 : Opérateurs d’installations fixes et de machines  
 - 182 : Travailleurs de l’assemblage  
 - 183 : Conducteurs de véhicules et opérateurs d’équipements mobiles  
+- 191 : Pas de correspondances
 - 192 : Travailleurs non qualifiés de l’agriculture, de la production animale, de la pêche et de la sylviculture  
 - 193 : Travailleurs non qualifiés de l’industrie extractive, de la construction, de la fabrication et du transport  
 - 194 : Aides à la préparation des repas  
-- 195 : Vendeurs ambulants (hors produits alimentaires) et prestataires de services de rue   
+- 195 : Vendeurs ambulants (hors produits alimentaires) et prestataires de services de rue    
 
 **13. Admission grade**  
 Note d'admission à l'université, calculée selon les critères nationaux portugais.  
