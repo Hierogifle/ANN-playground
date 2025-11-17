@@ -12,12 +12,12 @@ Ils sont constitués d’unités appelées neurones artificiels, organisées en 
 
 Un réseau de neurones typique est constitué de trois types de couches :
 
-- Couche d’entrée (Input Layer)
+- Couche d’entrée : (Input Layer)
 Représente les variables explicatives (features) du problème.
 Chaque neurone correspond à une variable d’entrée.
 Aucun calcul complexe n’y est effectué : cette couche transmet simplement les données à la première couche cachée.
 
-- Couches cachées (Hidden Layers)
+- Couches cachées : (Hidden Layers)
 Effectuent la transformation non linéaire des données d’entrée.
 Chaque neurone calcule une somme pondérée de ses entrées, ajoute un biais, puis applique une fonction d’activation :
     
@@ -32,12 +32,15 @@ Plus il y a de couches cachées, plus le réseau peut modéliser des relations c
 Produit le résultat final du modèle :
 
   -Pour une classification binaire → 1 neurone (activation sigmoïde).
-  -Pour une classification multi-classe → 1 neurone par classe (activation softmax).
-  -Pour une régression → 1 neurone sans activation (sortie linéaire).
+
+  -Pour une classification multi-classe : 1 neurone par classe (activation softmax).
+
+  -Pour une régression : 1 neurone sans activation (sortie linéaire).
 
 # II Concepts clés
 # 1 Fonction d’activation
 Les fonctions d’activation introduisent la non-linéarité nécessaire pour apprendre des relations complexes. Sans elles, le réseau ne ferait qu’une simple transformation linéaire.
+
 Quelques fonctions courantes :
 
 | Fonction     | Expression                                     | Domaine de sortie | Particularités                                            |
@@ -48,7 +51,7 @@ Quelques fonctions courantes :
 | **Softmax**  | softmax(zᵢ) = eᶻⁱ / Σ eᶻʲ                     | (0, 1), somme = 1 | Utilisée en sortie pour classification multi-classe       |
 
 # 2 Propagation et rétropropagation
-🟢 Propagation avant (Forward Propagation)²notepad
+🟢 Propagation avant (Forward Propagation) :
 Les données circulent de l’entrée vers la sortie, couche par couche :
 
    a⁽ˡ⁾ = φ(W⁽ˡ⁾ · a⁽ˡ⁻¹⁾ + b⁽ˡ⁾)
@@ -59,13 +62,13 @@ où :
 - **φ** : fonction d’activation
 - **a⁽ˡ⁾** : sortie (activation) de la couche *l*
 
-Le réseau calcule la sortie ^y à partir des entrées x.
+Le réseau calcule la sortie ŷ à partir des entrées x.
 
 🔴 Rétropropagation (Backpropagation)
 
 C’est la phase d’apprentissage du réseau.
 Elle consiste à calculer l’erreur entre la sortie réelle 
-𝑦 et la sortie prédite, puis à ajuster les poids pour la réduire :
+𝑦 et la sortie prédite ŷ, puis à ajuster les poids pour la réduire :
 
    wᵢ ← wᵢ − η · (∂L / ∂wᵢ)
 où :
@@ -88,8 +91,7 @@ Le but de l’apprentissage est de minimiser cette perte.
 
 # 4 Descente de gradient
 C’est l’algorithme d’optimisation utilisé pour mettre à jour les poids :
-L’objectif est de **minimiser la fonction de perte** (*Loss Function*)  
-en ajustant progressivement les paramètres du modèle.
+L’objectif est de **minimiser la fonction de perte** (*Loss Function*) en ajustant progressivement les paramètres du modèle.
 
 La règle de mise à jour des poids est :
 
@@ -103,13 +105,19 @@ où :
 # 5 Vanishing Gradient
 Problème rencontré lors de l’entraînement des réseaux profonds :
 les gradients deviennent très faibles dans les premières couches, bloquant l’apprentissage.
-Causes :
+
+   Causes :
 
 -Fonctions saturantes (sigmoid, tanh)
+
 -Mauvaise initialisation des poids
-   Solutions :
+
+    Solutions :
+
 -Utiliser ReLU, LeakyReLU
+
 -Initialisations He ou Xavier
+
 -Batch Normalization ou Skip Connections
 
 # III Hyperparamètres et bonnes pratiques
@@ -133,14 +141,16 @@ Grâce à ses couches cachées et à la rétropropagation, il peut modéliser de
 Son efficacité dépend fortement :
 
   -d’une bonne architecture,
-  -d’un choix judicieux des fonctions d’activation,
-  -et d’un réglage précis des hyperparamètres.
+  d’un choix judicieux des fonctions d’activation,
+  et d’un réglage précis des hyperparamètres.
+
   -Une compréhension solide de ces concepts théoriques est indispensable avant de passer à la mise en œuvre pratique du modèle.
 
 # Expérimentation avec TensorFlow Playground
 
 Cette phase vise à explorer visuellement le fonctionnement d’un réseau de neurones multicouche grâce à **TensorFlow Playground**.
-C'est un outil interactif permettant de:
+C'est un outil interactif permettant de :
+
   -tester différentes architectures (nombre de couches et de neurones),
 
   -modifier les hyperparamètres (fonction d’activation, taux d’apprentissage, bruit, etc.),
@@ -162,7 +172,9 @@ L’objectif est de comprendre comment chaque paramètre influence la convergenc
 Observation:
 
   -Les datasets **Circle et XOR** peuvent être correctement appris avec 1 couche cachée et quelques neurones.
+
   -Le dataset **Spiral** nécessite plusieurs couches et des activations non linéaires (ReLU, Tanh) pour obtenir une frontière correcte.
+  
   -Le dataset **Gaussian** (nuages gaussiens) est souvent le plus simple : quand les clusters ont peu de recouvrement, une **frontière linéaire** suffit et un perceptron simple apprend très vite. En présence d’un fort recouvrement (variance élevée), le problème devient plus difficile et demande soit plus de capacité (neurones/couches) soit des features non-linéaires.
 
 # 2 Test de configurations variées
@@ -171,11 +183,11 @@ Cette étape consiste à modifier les principaux hyperparamètres pour comprendr
 # a. Nombre de couches et de neurones
 
 **Manipulations**
-  -1 à 3 couches cachées
-  -1 → 8 neurones par couche
-  -Fonction d’activation : ReLU
-  -Learning Rate : 0.01
-  -100 % des données pour l’entraînement
+  1 à 3 couches cachées
+  , 1 → 8 neurones par couche
+  , fonction d’activation : ReLU
+  , Learning Rate : 0.01
+  et 100 % des données pour l’entraînement
 
 **Résultats observés**
 | Configuration          | Test Loss | Training Loss | Observation                                                   |
@@ -206,9 +218,10 @@ Comparaison entre : **Sigmoid, Tanh et ReLU**
 | **ReLU**       | Convergence rapide et stable                     | Évite le vanishing gradient, favorise la propagation des erreurs      |
 
 **Interprétation**
-  -**Sigmoid/Tanh** : compressent fortement les valeurs → pertes d’information et gradients quasi nuls dans les couches profondes.
 
-  -**ReLU** : conserve un gradient constant pour les valeurs positives → apprentissage plus rapide.
+  -**Sigmoid/Tanh** : compressent fortement les valeurs, pertes d’information et gradients quasi nuls dans les couches profondes.
+
+  -**ReLU** : conserve un gradient constant pour les valeurs positives, apprentissage plus rapide.
 
 Sur le dataset **Spiral**, **Tanh** converge plus lentement mais plus douce et **RuLU** chute rapidement puis se stabilise.
 
@@ -226,24 +239,28 @@ Sur le dataset **Spiral**, **Tanh** converge plus lentement mais plus douce et *
 | 0.0001 | > 0.6             | > 0.6             | Très lent, stagnation, gradients faibles                 |
 
 **Interprétation**
-  -**η trop élevé** → perte qui oscille ou diverge.
 
-  -**η trop faible** → apprentissage extrêmement lent.
+  -**η trop élevé**, perte qui oscille ou diverge.
+
+  -**η trop faible**, apprentissage extrêmement lent.
 
   -**η ≈ 0.001** offre le meilleur compromis vitesse/stabilité.
 
 # 3 Analyse du phénomène de Vanishing Gradient
 
-**Définition**
+**Définition** ;
 Le vanishing gradient survient quand les gradients deviennent trop petits dans les couches proches de l’entrée, empêchant ces couches d’être mises à jour correctement.
 
-**Expérimentation**
+**Expérimentation** :
 Architecture : 4 couches cachées, activation Sigmoid.
-Observation :
+
+**Observation** :
+
   -Les couches d’entrée restent quasiment inactives (couleurs statiques).
+
   -La loss stagne après quelques itérations.
 
-**Solution testée**
+**Solution testée** :
 Passage à **ReLU** : les neurones s’activent de nouveau, la loss diminue rapidement.
 
 # Synthèse
