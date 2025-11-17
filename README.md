@@ -31,7 +31,7 @@ Plus il y a de couches cachées, plus le réseau peut modéliser des relations c
 
 Produit le résultat final du modèle :
 
-  -Pour une classification binaire → 1 neurone (activation sigmoïde).
+  -Pour une classification binaire : 1 neurone (activation sigmoïde).
 
   -Pour une classification multi-classe : 1 neurone par classe (activation softmax).
 
