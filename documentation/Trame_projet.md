@@ -3,7 +3,9 @@
 Ce projet vise à développer un modèle de Perceptron Multicouche (MLP) pour prédire le statut des étudiants (abandon, diplômé, inscrit) en se basant sur diverses caractéristiques démographiques et académiques. Le projet comprend plusieurs étapes clés, allant de la collecte et du prétraitement des données à l'entraînement et à l'évaluation du modèle.
 
 ## Étapes du Projet
-### 1. **Collecte des Données** : Récupération des données pertinentes à partir de sources fiables. - cf `notebooks/extract_and_load_dataset.ipynb`
+### 1. **Collecte des Données** : Récupération des données pertinentes à partir de sources fiables. 
+
+- **cf `notebooks/extract_and_load_dataset.ipynb`**
 
 Télchargement des datasets depuis l'UCI Machine Learning Repository :
 - https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success
@@ -14,38 +16,16 @@ dataset = fetch_ucirepo(id=697)
 
 Dataset : 37 variables (features) + 1 variable cible (target) - 4433 échantillons.
 
-Analyse des différentes variables disponibles dans le dataset pour comprendre leur signification et leur utilité potentielle dans la prédiction du statut des étudiants. 
-- cf `documentation/data_info.md`
+Analyse des différentes variables disponibles dans le dataset pour comprendre leur signification et leur utilité potentielle dans la prédiction du statut des étudiants.
 
-### 2. **Prétraitement des Données** : Nettoyage et préparation des données pour l'analyse. - cf `notebooks/extract_and_load_dataset.ipynb`
+- **cf `documentation/data_info.md`**
 
-Verification de la qualité des données :
-- valeurs manquantes = Aucune valeur manquante détectée.
-- anomalies = Aucune anomalie détectée.
-- incohérences = Suppression des lignes où "Mother's occupation" est 125, 173 ou 191 car aucune correspondance métier n'est trouvée.
-  - Nombre / Pourcentage de lignes supprimées : 28 / 0.63 %
+---
 
-Ajout de features - Création de nouvelles variables basées sur les données existantes pour enrichir le dataset.
-- cf `documentation/data_info.md`
+### 2. **Prétraitement des Données** : Nettoyage et préparation des données pour l'analyse. - 
 
-Répartition des cibles :
-- Graduate : 2193 (49.9 %)
-- Dropout : 1421 (32.3 %)
-- Enrolled : 782 (17.8 %)
-
-Dataset après modification : 43 variables (features) + 1 variable cible (target) - 4433 échantillons.
-
-Séparation des données en deux fichiers distincts pour des analyses ciblées :
-- `data/data_enrolled.csv` : Contient uniquement les étudiants inscrits (Enrolled).
-  - Nombre d'observations : 782
-  - Répartition des cibles :
-    - Enrolled : 782 (100 %)
-- `data/data_graduate_dropout.csv` : Contient les étudiants diplômés (Graduate) et ceux ayant abandonné (Dropout).
-    - Nombre d'observations : 3614
-    - Répartition des cibles :
-        - Graduate : 2193 (60.7 %)
-        - Dropout : 1421 (39.3 %)
-
+- **cf `documentation/data_info.md`**
+- **cf `notebooks/extract_and_load_dataset.ipynb`**
 
 ### 3. **Exploration des Données (EDA)** : Analyse exploratoire pour comprendre les tendances
 

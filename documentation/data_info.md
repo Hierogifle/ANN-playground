@@ -11,25 +11,40 @@ Ce jeu de données accompagne l’étude « Early Prediction of Student’s Perf
 - Identifier **précocement** les étudiants à risque de décrochage ou d’échec académique.
 - Proposer des mesures de soutien adaptées avant le début de l’année universitaire.
 - Formuler la tâche comme une **classification à trois classes** :  
-  1. **Échec** (Failure)  
-  2. **Succès relatif** (Relative Success)  
-  3. **Réussite** (Success)
+  - **Dropout** (Echec) : 1421 (32.3 %)
+  - **Graduate** (Réussite) : 2193 (49.9 %)
+  - **Enrolled** (Inscrit) : 782 (17.8 %)
 
-Les données couvrent la période **2008/09–2018/19** et portent sur des étudiants de l’Institut Polytechnique de Portalegre (Portugal). Après nettoyage, **3623 instances** ont été conservées pour l’étude publiée, réparties approximativement en 28 % échec, 16 % succès relatif et 56 % réussite.
+Les données couvrent la période **2008/09–2018/19** et portent sur des étudiants de l’Institut Polytechnique de Portalegre (Portugal). 
 
 ---
 
-## 2. Caractéristiques techniques
+## 2. Caractéristiques des données
 
-- **Type** : Données tabulaires (36 features + 1 cible).  
-- **Instances** : 4424 initiales (3623 après prétraitement).  
-- **Variables** : 37 (25 utilisées dans l’étude).  
-- **Valeurs manquantes** : Aucune (prétraitement appliqué).  
-- **Split recommandé** : 80 % entraînement / 20 % test.  
-- **Équilibrage** : SMOTE retenu pour corriger le déséquilibre des classes.  
-- **Validation** : 5-fold stratifiée, optimisation par grid/random search.  
-- **Métriques** : F1-score par classe (prioritaire), accuracy en complément.
+- **Type** : Données tabulaires (42 features + 1 cible)
+- **Instances** : 4424 échantillons initiaux
+- **Variables** : 37 initiales 
+- **Valeurs manquantes** : Aucune
+- **Anomalies détectées** : Suppression des lignes où "Mother's occupation" est 125, 173 ou 191 car aucune correspondance métier n'est trouvée.
+  - **Nombre / Pourcentage de lignes supprimées** : 28 / 0.63 % 
 
+Après analyses des données, 2 fichiers CSV ont été crées  :
+- `data/data_enrolled.csv` : Contient uniquement les étudiants inscrits (Enrolled).
+  - Nombre d'observations : 782
+  - Répartition des cibles :
+    - Enrolled : 782 (100 %)
+- `data/data_graduate_dropout.csv` : Contient les étudiants diplômés (Graduate) et ceux ayant abandonné (Dropout).
+    - Nombre d'observations : 3614
+    - Répartition des cibles :
+        - Graduate : 2193 (60.7 %)
+        - Dropout : 1421 (39.3 %)
+
+
+Nombre de features après onehot encoding et groupage : 54 features + 1 cible
+- Ajout de nouvelles variables basées sur les données existantes pour enrichir le dataset. 
+  cf section "Features Rajouté"
+- Supprimer les variables redondantes ou non informatives. 
+  cf section "Features Supprimé"
 ---
 
 ## Variables principales
@@ -73,7 +88,7 @@ Valeurs possibles :
 - 1 : Deuxième choix  
 - 2 : Troisième choix  
 - ...  
-- **9 : Dixième choix (dernier choix)**  
+- 9 : Dixième choix (dernier choix)  
 
 **4. Course**  
 Code numérique représentant le cursus universitaire choisi.  
@@ -473,7 +488,7 @@ Valeurs possibles :
 
 ## Features Rajouté :
 
-## Groupes de Niveau de Qualification Précédente – Classification Académique
+## Previous qualification Group – Classification Académique
 
 ### Groupe 0 : Diplômes universitaires et post-universitaires
 - 4 : Diplôme supérieur de troisième cycle (Doctorat)
@@ -510,7 +525,7 @@ Valeurs possibles :
 
 ---
 
-## Classification Multidimensionnelle des Nationalités
+## Nationality Group – Classification des Nationalités pour l'Analyse de la Réussite Académique
 
 Basé sur un ensemble d'indicateurs de développement, d'éducation, de santé, de sécurité et de liberté économique, voici une classification exhaustive des nationalités pour analyser l'impact sur la réussite académique.
 
@@ -618,7 +633,7 @@ Cette classification multidimensionnelle permet d'identifier :
 
 ---
 
-## Groupes de Niveau d'Études des Parents
+## Mother's qualification Group / Father's qualification Group – Classification Académique des Niveaux d'Éducation Parentale
 
 ### Groupe 0 : Diplômes universitaires supérieurs
 - 5 : Doctorat (3ᵉ cycle)
@@ -672,7 +687,7 @@ Cette classification multidimensionnelle permet d'identifier :
 
 ---
 
-## Classification des Professions par Niveau d’exigence cognitive et de qualification professionnelle
+## Mother's occupation Group / Father's occupation Group – Classification des Professions Parentales selon l'Exigence Cognitive et l'Impact sur la Réussite Scolaire
 
 Basé sur les recherches scientifiques concernant les corrélations entre professions parentales, niveau socio-économique et réussite académique, voici une classification des métiers de votre dataset selon leurs exigences cognitives et leur association avec la réussite scolaire des enfants.
 
@@ -762,6 +777,17 @@ Basé sur les recherches scientifiques concernant les corrélations entre profes
 
 ---
 
+## Features Supprimés :
+
+- Previous qualification
+- Nacionality
+- Mother's qualification
+- Father's qualification
+- Mother's occupation
+- Father's occupation
+
+---
+
 ## Notes importantes
 
 - Ce dataset contient 36 variables d'entrée (features) et 1 variable cible.  
@@ -775,40 +801,17 @@ Basé sur les recherches scientifiques concernant les corrélations entre profes
 
 - **Créé dans le cadre** : Programme SATDAP - Capacitação da Administração Pública sous la subvention POCI-05-5762-FSE-000191, Portugal.
 - **Auteurs principaux** : 
-  - Valentim Realinho (vrealinho@ - Instituto Politécnico de Portalegre)
-  - Mónica Vieira Martins (mvmartins@ipportalegre.pt - Instituto Politécnico de Portalegre)
-  - Jorge Machado (jmachado@ipportalegre.pt - Instituto Politécnico de Portalegre)
-  - Luís Baptista (lmtb@ipportalegre.pt - Instituto Politécnico de Portalegre)
-- **Publication associée** : Trends and Applications in Information Systems and Technologies (2021).
-
----
-
-## Fichiers du dataset
-
-| Fichier | Taille |
-|---------|--------|
-| data.csv | 520.7 KB |
+  - Mónica Vieira Martins (Instituto Politécnico de Portalegre)
+  - Daniel Tolledo (Instituto Politécnico de Portalegre)
+  - Jorge Machado (Instituto Politécnico de Portalegre)
+  - Luís M. T. Baptista (Instituto Politécnico de Portalegre)
+  - Valentim Realinho (Instituto Politécnico de Portalegre - VALORIZA - Research Center for Endogenous Resource Valorization, Portalegre, Portugal)
+**Citation complète**:
+  Martins, M.V., Tolledo, D., Machado, J., Baptista, L.M.T., Realinho, V. (2021). Early Prediction of student’s Performance in Higher Education: A Case Study. In: Rocha, Á., Adeli, H., Dzemyda, G., Moreira, F., Ramalho Correia, A.M. (eds) Trends and Applications in Information Systems and Technologies. WorldCIST 2021. Advances in Intelligent Systems and Computing, vol 1365. Springer, Cham. https://doi.org/10.1007/978-3-030-72657-7_16
+  Lien : [text](https://link.springer.com/chapter/10.1007/978-3-030-72657-7_16)
 
 ---
 
 ## Licence
 
 Ce dataset est sous licence Creative Commons Attribution 4.0 International (CC BY 4.0), ce qui autorise le partage et l’adaptation, à condition de mentionner les auteurs et la source.
-
----
-
-## DOI et références
-
-**DOI**: 10.24432/C5MC89
-
-**Citation complète**:
-Realinho, V., Vieira Martins, M., Machado, J., & Baptista, L. (2021). Predict Students' Dropout and Academic Success [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5MC89
-
----
-
-## Notes importantes
-
-- Le dataset a été soigneusement nettoyé pour traiter les anomalies, valeurs aberrantes et valeurs manquantes.
-- La classification finale cible trois états distincts de parcours étudiant : **décrochage**, **inscrit**, **diplômé**.
-- La forte imbalance des classes nécessite des techniques spécifiques d'apprentissage automatique.
-- Seules 10 des 37 variables totales sont documentées en détail dans la source fournie.
