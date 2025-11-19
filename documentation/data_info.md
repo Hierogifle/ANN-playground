@@ -45,6 +45,7 @@ Nombre de features après onehot encoding et groupage : 54 features + 1 cible
   cf section "Features Rajouté"
 - Supprimer les variables redondantes ou non informatives. 
   cf section "Features Supprimé"
+  
 ---
 
 ## Variables principales
