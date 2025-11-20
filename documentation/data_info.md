@@ -872,7 +872,7 @@ Nombre de features après encodage (OneHot encoding) 83 features + 1 target
 Pour assurer que toutes les features contribuent de manière égale aux analyses prédictives, une standardisation des données a été effectuée. Chaque feature a été transformée pour avoir une moyenne de 0 et un écart-type de 1. Cette étape est cruciale pour les algorithmes sensibles à l'échelle des données, tels que la régression logistique et les réseaux de neurones.
 
 ---
-## 6. Références
+## 10. Références
 
 ## Informations sur les auteurs et financement
 
@@ -889,6 +889,6 @@ Pour assurer que toutes les features contribuent de manière égale aux analyses
 
 ---
 
-## 7. Licence
+## 11. Licence
 
 Ce dataset est sous licence Creative Commons Attribution 4.0 International (CC BY 4.0), ce qui autorise le partage et l’adaptation, à condition de mentionner les auteurs et la source.
