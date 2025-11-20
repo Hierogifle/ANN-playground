@@ -10,41 +10,20 @@ Ce jeu de données accompagne l’étude « Early Prediction of Student’s Perf
 
 - Identifier **précocement** les étudiants à risque de décrochage ou d’échec académique.
 - Proposer des mesures de soutien adaptées avant le début de l’année universitaire.
-- Formuler la tâche comme une **classification à trois classes** :  
-  - **Dropout** (Echec) : 1421 (32.3 %)
-  - **Graduate** (Réussite) : 2193 (49.9 %)
-  - **Enrolled** (Inscrit) : 782 (17.8 %)
+- Répartition des statuts des étudiants dans le dataset :  
+  - **Graduate** (Réussite) : 2209 (49.9 %)
+  - **Dropout** (Echec) : 1421 (32.1 %)
+  - **Enrolled** (Inscrit) : 794 (17.9 %)
 
 Les données couvrent la période **2008/09–2018/19** et portent sur des étudiants de l’Institut Polytechnique de Portalegre (Portugal). 
 
 ---
 
-## 2. Caractéristiques des données
+## 2. Caractéristiques des données initiales
 
-- **Type** : Données tabulaires (42 features + 1 cible)
+- **Type** : Données tabulaires
 - **Instances** : 4424 échantillons initiaux
-- **Variables** : 37 initiales 
-- **Valeurs manquantes** : Aucune
-- **Anomalies détectées** : Suppression des lignes où "Mother's occupation" est 125, 173 ou 191 car aucune correspondance métier n'est trouvée.
-  - **Nombre / Pourcentage de lignes supprimées** : 28 / 0.63 % 
-
-Après analyses des données, 2 fichiers CSV ont été crées  :
-- `data/data_enrolled.csv` : Contient uniquement les étudiants inscrits (Enrolled).
-  - Nombre d'observations : 782
-  - Répartition des cibles :
-    - Enrolled : 782 (100 %)
-- `data/data_graduate_dropout.csv` : Contient les étudiants diplômés (Graduate) et ceux ayant abandonné (Dropout).
-    - Nombre d'observations : 3614
-    - Répartition des cibles :
-        - Graduate : 2193 (60.7 %)
-        - Dropout : 1421 (39.3 %)
-
-
-Nombre de features après onehot encoding et groupage : 54 features + 1 cible
-- Ajout de nouvelles variables basées sur les données existantes pour enrichir le dataset. 
-  cf section "Features Rajouté"
-- Supprimer les variables redondantes ou non informatives. 
-  cf section "Features Supprimé"
+- **Variables** : 36 initiales d'entrée (features) + 1 variable cible (target)
   
 ---
 
@@ -487,7 +466,7 @@ Valeurs possibles :
 
 ---
 
-## Features Rajouté :
+## 3. Features Rajouté :
 
 ## Previous qualification Group – Classification Académique
 
@@ -776,27 +755,124 @@ Basé sur les recherches scientifiques concernant les corrélations entre profes
 - **90** : Autre situation  
 - **99** : (vide)
 
+## Curricular units 1st sem (Approved/Enrolled) et Curricular units 2nd sem (Approved/Enrolled) – Taux de Réussite Académique par Semestre
+
+Le taux de réussite académique par semestre est un indicateur clé pour évaluer la performance des étudiants dans leurs unités d'enseignement respectives. Il est directement lié au nombre d'unités validées par rapport au nombre total d'unités auxquelles l'étudiant s'est inscrit ce qui renvoit à son efficacité académique.
+
+**Calcul du Taux de Réussite par Semestre :**
+- Taux de Réussite 1er Semestre = (Curricular units 1st sem (approved) / Curricular units 1st sem (enrolled)) * 100
+- Taux de Réussite 2nd Semestre = (Curricular units 2nd sem (approved) / Curricular units 2nd sem (enrolled)) * 100
+
 ---
 
-## Features Supprimés :
-
+## 4. Features Supprimés :
+La plupart des variables initiales ont été conservées. Cependant, les variables suivantes ont été supprimées en raison de leur remplacement par des features de groupe plus informatives :
 - Previous qualification
 - Nacionality
 - Mother's qualification
 - Father's qualification
 - Mother's occupation
 - Father's occupation
+- Course (171)
+  - Supprimé car aucune évaluation n'a été réalisée pour cette filière spécifique dans le dataset.
 
 ---
 
-## Notes importantes
+## 5. Caractéristiques des données après nettoyage et pré-traitement
 
-- Ce dataset contient 36 variables d'entrée (features) et 1 variable cible.  
-- Les variables 22 à 33 concernent les performances académiques des deux premiers semestres.  
-- Les variables 34 à 36 sont des indicateurs macroéconomiques contextuels.  
-- Aucune valeur manquante n'est présente dans le dataset après prétraitement. 
+- **Nombre total de lignes après préparation** : 4181
+- **Nombre total de colonnes après préparation** : 39
+- **Valeurs manquantes** : Aucune
+- **Anomalies détectées** : 
+  - Suppression des lignes où "Mother's occupation" = [125, 173, 191] --> aucune correspondance métier n'est trouvée.
+  - Suppression des lignes où "Father's occupation" = [125, 173, 191] --> aucune correspondance métier n'est trouvée.
+  - **Nombre / Pourcentage de lignes supprimées** : 28 / 0.63 % 
+  - Suppression des lignes où course = [171] --> aucune évaluation réalisée.
+  - **Nombre / Pourcentage de lignes supprimées** : 215 / 4.89 %
+- **Répartition des classes après séparation** :
+  - Graduate : 2097 (50.2 %) --> +0.2 par rapport aux données initiales (2209)
+  - Dropout : 1339 (32.0 %) --> -0.1 par rapport aux données initiales (1421)
+  - Enrolled : 745 (17.8 %) --> -0.1 par rapport aux données initiales (794)
 
 ---
+
+## 6. Séparation en deux fichiers distincts - Enrolled vs Graduate/Dropout
+
+Nous devons séparer les fichiers en deux ensembles distincts pour différentes analyses car les étudiants "Enrolled" (toujours inscrits) ne sont pas pertinents pour l'analyse des taux de réussite ou d'abandon. Ils pourront nous être utiles pour des analyses futures sur la prédiction de la réussite académique en cours d'études.
+
+Après analyses des données, 2 fichiers CSV ont été crées  :
+- `data/data_enrolled.csv` : Contient uniquement les étudiants inscrits (Enrolled).
+  - Nombre d'observations : 782
+  - Répartition des cibles :
+    - Enrolled : 745 (100 %)
+- `data/data_graduate_dropout.csv` : Contient les étudiants diplômés (Graduate) et ceux ayant abandonné (Dropout).
+    - Nombre d'observations : 3436
+    - Répartition des cibles :
+        - Graduate : 2097 (61 %)
+        - Dropout : 1339 (39 %)
+
+---
+
+## 7. Séparation en train et test
+
+Pour le fichier `data/data_graduate_dropout.csv`, une séparation en ensembles d'entraînement et de test a été effectuée pour les analyses prédictives futures.
+- Taille de l'ensemble d'entraînement : 80 % ( observations)
+- Taille de l'ensemble de test : 20 % ( observations)
+
+---
+
+## 8. Encodage et Standardisation des features
+En raison de la présence de variables catégorielles dans le dataset, un encodage one-hot sans drop first a été appliqué pour convertir ces variables en un format numérique adapté aux algorithmes de machine learning.
+
+Application de l'encodage OneHot sur les variables suivantes :
+- Marital Status
+- Application mode
+- Course
+- Daytime/evening attendance
+- Displaced
+- Educational special needs
+- Debtor
+- Tuition fees up to date
+- Gender
+- Scholarship holder
+- International
+
+Application du label encoding sur les variables suivantes :
+- target
+
+Application de l'encodage ordinal sur les variables suivantes :
+- Application order
+- Previous qualification Group
+- Mother's qualification Group
+- Father's qualification Group
+- Admission grade
+- Age at enrollment
+- Curricular units 1st sem (credited)
+- Curricular units 1st sem (enrolled)", "Curricular units 1st sem (evaluations)",
+- Curricular units 1st sem (evaluations)
+- Curricular units 1st sem (approved)
+- Curricular units 1st sem (grade)
+- Curricular units 1st sem (without evaluations)
+- Curricular units 2nd sem (credited)
+- Curricular units 2nd sem (enrolled)
+- Curricular units 2nd sem (evaluations)
+- Curricular units 2nd sem (approved)
+- Curricular units 2nd sem (grade)
+- Curricular units 2nd sem (without evaluations)
+- Unemployment rate
+- Inflation rate
+- GDP
+
+Nombre de features après encodage (OneHot encoding) 83 features + 1 target
+
+---
+
+## 9. Standardisation des données
+
+Pour assurer que toutes les features contribuent de manière égale aux analyses prédictives, une standardisation des données a été effectuée. Chaque feature a été transformée pour avoir une moyenne de 0 et un écart-type de 1. Cette étape est cruciale pour les algorithmes sensibles à l'échelle des données, tels que la régression logistique et les réseaux de neurones.
+
+---
+## 6. Références
 
 ## Informations sur les auteurs et financement
 
@@ -813,6 +889,6 @@ Basé sur les recherches scientifiques concernant les corrélations entre profes
 
 ---
 
-## Licence
+## 7. Licence
 
 Ce dataset est sous licence Creative Commons Attribution 4.0 International (CC BY 4.0), ce qui autorise le partage et l’adaptation, à condition de mentionner les auteurs et la source.
