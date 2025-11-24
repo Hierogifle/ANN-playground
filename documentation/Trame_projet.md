@@ -27,10 +27,11 @@ Analyse des différentes variables disponibles dans le dataset pour comprendre l
 - **cf `documentation/data_info.md`**
 - **cf `notebooks/extract_and_load_dataset.ipynb`**
 
-### 3. **Exploration des Données (EDA)** : Analyse exploratoire pour comprendre les tendances
+### 3. **Exploration des Données (EDA)** : Analyse exploratoire pour comprendre les tendances et les relations entre les variables.
 
+- **cf `notebooks/EDA.ipynb`**
+- **cf `documentation/EDA_report.md`**
 
-### 4. **Séparation des Données** : Division des données en ensembles d'entraînement, de validation et de test.
 ### 5. **Construction du Modèle MLP** : Développement et configuration du modèle de Per
 ### 6. **Entraînement du Modèle** : Formation du modèle sur les données d'entraînement.
 ### 7. **Évaluation du Modèle** : Test et validation des performances du modèle.
